@@ -90,10 +90,19 @@
 
 ### 通讯方式切换
 
-在 `src/lhandpro_service/src/hand_control_service.hpp` 文件中修改 `USE_CANFD` 宏：
+在 `src/lhandpro_service/src/hand_control_service.hpp` 文件中修改 `COMMUNICATION_MODE` 宏：
 
-- `#define USE_CANFD 0` - 使用 EtherCAT 通讯
-- `#define USE_CANFD 1` - 使用 CANFD 通讯
+- `#define COMMUNICATION_MODE 0` - 使用 EtherCAT 通讯
+- `#define COMMUNICATION_MODE 1` - 使用 CANFD 通讯
+
+### 灵巧手型号切换
+
+在 `src/lhandpro_service/src/hand_control_service.hpp` 文件中修改 `HAND_TYPE` 宏：
+
+- `#define HAND_TYPE lhplib::LAC_DOF_6` - DH116灵巧手
+- `#define HAND_TYPE lhplib::LAC_DOF_6_S` - DH116S灵巧手
+
+
 
 ### 服务列表
 

@@ -15,7 +15,7 @@ HandControlService::HandControlService() : Node("lhandpro_service") {
   is_connected_ = false;
   current_channel_ = 0;  // 手动修改默认通道
 
-#if USE_CANFD
+#if COMMUNICATION_MODE == 1
   RCLCPP_INFO(this->get_logger(), "使用CANFD通讯方式");
   init_canfd(current_channel_);
 #else
@@ -105,10 +105,10 @@ void HandControlService::init_canfd(int channel) {
   }
 
   for (size_t i = 0; i < names.size(); ++i) {
-    RCLCPP_INFO(this->get_logger(), "扫描到:%d --- %s", (int)i, names[i].c_str());
+    RCLCPP_INFO(this->get_logger(), "扫描到:%d --- %s", static_cast<int>(i), names[i].c_str());
   }
 
-  if (target < 0 || target >= names.size()) {
+  if (target < 0 || target >= static_cast<int>(names.size())) {
     RCLCPP_ERROR(this->get_logger(), "无效的通道索引: %d", target);
     return;
   }
@@ -135,7 +135,7 @@ void HandControlService::init_canfd(int channel) {
 
   // 设置接收回调函数, 刷新解析数据
   canfd_master_->setReceiveCallback(
-      [this](uint32_t id, const std::vector<uint8_t>& data, uint64_t timestamp) {
+      [this](uint32_t /*id*/, const std::vector<uint8_t>& data, uint64_t /*timestamp*/) {
         lhp_lib_->set_canfd_data_decode(data.data(), data.size());
       });
 
@@ -186,7 +186,7 @@ void HandControlService::check_and_reconnect() {
 
   if (!is_connected_) {
     RCLCPP_INFO(this->get_logger(), "正在尝试重新连接设备...");
-#if USE_CANFD
+#if COMMUNICATION_MODE == 1
     init_canfd(current_channel_);
 #else
     init_ethercat(current_channel_);
@@ -201,13 +201,12 @@ void HandControlService::init_config() {
               total, active);
   active_dof_ = active;
 
-  int hand_type = lhplib::LAC_DOF_6;
-  lhp_lib_->set_hand_type(hand_type);
-  RCLCPP_INFO(this->get_logger(), "设置灵巧手型号为: %d", hand_type);
+  lhp_lib_->set_hand_type(HAND_TYPE);
+  RCLCPP_INFO(this->get_logger(), "设置灵巧手型号为: %d", HAND_TYPE);
 }
 
 bool HandControlService::is_alive() {
-#if USE_CANFD
+#if COMMUNICATION_MODE == 1
   // CANFD连接状态检查
   if (!canfd_master_) return false;
   return canfd_master_->isConnected();

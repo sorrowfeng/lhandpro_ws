@@ -72,7 +72,7 @@ bool CANFDMaster::connect(int deviceIndex, int nomBaud, int dataBaud) {
 
   // 扫描可用的CAN接口
   std::vector<std::string> devices = scanDevices();
-  if (deviceIndex < 0 || deviceIndex >= devices.size()) {
+  if (deviceIndex < 0 || deviceIndex >= static_cast<int>(devices.size())) {
     return false;
   }
 

@@ -48,7 +48,14 @@
 // 通讯方式选择宏
 // 0: 使用EtherCAT通讯
 // 1: 使用CANFD通讯
-#define USE_CANFD 0
+#define COMMUNICATION_MODE 1
+
+// 灵巧手型号选择宏
+// lhplib::LAC_DOF_6: DH116灵巧手
+// lhplib::LAC_DOF_6_S: DH116S灵巧手
+#define HAND_TYPE lhplib::LAC_DOF_6
+
+
 
 // 服务注册宏
 #define REGISTER_SERVICE(SrvType, SrvName, Callback)          \
