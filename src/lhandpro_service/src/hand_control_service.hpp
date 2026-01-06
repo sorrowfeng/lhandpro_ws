@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "lhandpro_interfaces/srv/get_control_mode.hpp"
+#include "lhandpro_interfaces/srv/get_now_alarm.hpp"
 #include "lhandpro_interfaces/srv/get_max_current.hpp"
 #include "lhandpro_interfaces/srv/get_now_angle.hpp"
 #include "lhandpro_interfaces/srv/get_now_current.hpp"
@@ -30,6 +31,7 @@
 
 // 服务名称宏
 #define SRV_NAME_SET_ENABLE "set_enable"
+#define SRV_NAME_GET_NOW_ALARM "get_now_alarm"
 #define SRV_NAME_SET_POSITION "set_position"
 #define SRV_NAME_GET_POSITION "get_position"
 #define SRV_NAME_GET_NOW_ANGLE "get_now_angle"
@@ -89,6 +91,10 @@ class HandControlService : public rclcpp::Node {
   void set_enable_callback(
       const std::shared_ptr<lhandpro_interfaces::srv::SetEnable::Request> req,
       std::shared_ptr<lhandpro_interfaces::srv::SetEnable::Response> res);
+
+  void get_now_alarm_callback(
+      const std::shared_ptr<lhandpro_interfaces::srv::GetNowAlarm::Request> req,
+      std::shared_ptr<lhandpro_interfaces::srv::GetNowAlarm::Response> res);
 
   void set_position_callback(
       const std::shared_ptr<lhandpro_interfaces::srv::SetPosition::Request> req,
@@ -176,6 +182,8 @@ class HandControlService : public rclcpp::Node {
 
   rclcpp::Service<lhandpro_interfaces::srv::SetEnable>::SharedPtr
       set_enable_srv_;
+  rclcpp::Service<lhandpro_interfaces::srv::GetNowAlarm>::SharedPtr
+      get_now_alarm_srv_;
   rclcpp::Service<lhandpro_interfaces::srv::SetPosition>::SharedPtr
       set_position_srv_;
   rclcpp::Service<lhandpro_interfaces::srv::GetPosition>::SharedPtr

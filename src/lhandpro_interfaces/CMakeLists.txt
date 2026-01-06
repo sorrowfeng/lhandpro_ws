@@ -11,6 +11,7 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/SetEnable.srv"
+  "srv/GetNowAlarm.srv"
   "srv/GetAngle.srv"
   "srv/GetAngularVelocity.srv"
   "srv/GetControlMode.srv"

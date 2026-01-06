@@ -109,6 +109,7 @@
 | 服务名称 | 功能描述 |
 |---------|----------|
 | `set_enable` | 设置电机使能状态 |
+| `get_now_alarm` | 获取当前报警状态 |
 | `set_position` | 设置目标位置 |
 | `get_position` | 获取目标位置 |
 | `get_now_angle` | 获取当前角度 |

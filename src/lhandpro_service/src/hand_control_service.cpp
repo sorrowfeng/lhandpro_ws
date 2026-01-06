@@ -268,6 +268,8 @@ void HandControlService::init_service() {
   // 使用宏注册所有服务
   set_enable_srv_ =
       REGISTER_SERVICE(SetEnable, SRV_NAME_SET_ENABLE, set_enable_callback);
+  get_now_alarm_srv_ = REGISTER_SERVICE(GetNowAlarm, SRV_NAME_GET_NOW_ALARM,
+                                       get_now_alarm_callback);
   set_position_srv_ = REGISTER_SERVICE(SetPosition, SRV_NAME_SET_POSITION,
                                        set_position_callback);
   get_position_srv_ = REGISTER_SERVICE(GetPosition, SRV_NAME_GET_POSITION,
@@ -315,6 +317,23 @@ void HandControlService::set_enable_callback(
                 service_name, retn);
   }
   res->result = retn;
+}
+
+void HandControlService::get_now_alarm_callback(
+    const std::shared_ptr<lhandpro_interfaces::srv::GetNowAlarm::Request> req,
+    std::shared_ptr<lhandpro_interfaces::srv::GetNowAlarm::Response> res) {
+    const char* service_name = SRV_NAME_GET_NOW_ALARM;
+  if (!check_joint_validity(req->joint_id, service_name)) {
+    res->alarm = 0;
+    return;
+  }
+  int alarm = 0;
+  int retn = lhp_lib_->get_now_alarm(req->joint_id, &alarm);
+  if (retn != 0) {
+    RCLCPP_WARN(this->get_logger(), "[%s] 获取当前报警失败，错误码：%d",
+                service_name, retn);
+  }
+  res->alarm = alarm;
 }
 
 void HandControlService::set_position_callback(
