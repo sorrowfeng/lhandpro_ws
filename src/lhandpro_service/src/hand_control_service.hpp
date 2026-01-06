@@ -67,6 +67,7 @@ class HandControlService : public rclcpp::Node {
   void init_ethercat(int channel = 0);
   void init_canfd(int channel = 0);
   void cleanup_resources();
+  void init_config();
   void init_service();
 
   void check_and_reconnect();

@@ -22,6 +22,7 @@ HandControlService::HandControlService() : Node("lhandpro_service") {
   RCLCPP_INFO(this->get_logger(), "使用EtherCAT通讯方式");
   init_ethercat(current_channel_);
 #endif
+  init_config();
   init_service();
 
   // 每5秒检查一次连接状态
@@ -89,11 +90,6 @@ void HandControlService::init_ethercat(int channel) {
   // 监控线程, 刷新TPDO数据
   start_monitor();  // 启动监控
 
-  int total = 0, active = 0;
-  lhp_lib_->get_dof(&total, &active);
-  RCLCPP_INFO(this->get_logger(), "连接成功，总自由度: %d，主动自由度: %d",
-              total, active);
-  active_dof_ = active;
   is_connected_ = true;
   current_channel_ = target;
 }
@@ -150,12 +146,6 @@ void HandControlService::init_canfd(int channel) {
   }
 
   // CANFD数据通过回调函数处理，无需监控线程
-
-  int total = 0, active = 0;
-  lhp_lib_->get_dof(&total, &active);
-  RCLCPP_INFO(this->get_logger(), "连接成功，总自由度: %d，主动自由度: %d",
-              total, active);
-  active_dof_ = active;
   is_connected_ = true;
   current_channel_ = target;
 }
@@ -202,6 +192,18 @@ void HandControlService::check_and_reconnect() {
     init_ethercat(current_channel_);
 #endif
   }
+}
+
+void HandControlService::init_config() {  
+  int total = 0, active = 0;
+  lhp_lib_->get_dof(&total, &active);
+  RCLCPP_INFO(this->get_logger(), "连接成功，总自由度: %d，主动自由度: %d",
+              total, active);
+  active_dof_ = active;
+
+  int hand_type = lhplib::LAC_DOF_6;
+  lhp_lib_->set_hand_type(hand_type);
+  RCLCPP_INFO(this->get_logger(), "设置灵巧手型号为: %d", hand_type);
 }
 
 bool HandControlService::is_alive() {
