@@ -26,7 +26,7 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='plf',
+    maintainer='sorrowfeng',
     maintainer_email='1399600304@qq.com',
     description='DH116 model description project',
     license='Apache-2.0',

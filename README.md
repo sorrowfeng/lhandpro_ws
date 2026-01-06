@@ -1,6 +1,6 @@
-# LHandPro 控制服务
+# LHandPro ROS2 示例工程
 
-这是一个基于 ROS2 的 LHandPro 手部控制器服务，支持 EtherCAT 和 CANFD 两种通讯方式。
+这是一个基于 ROS2 的 LHandPro 示例工程，支持 EtherCAT 和 CANFD 两种通讯方式。
 
 ## 系统要求
 
@@ -37,7 +37,7 @@
    sudo cp src/lhandpro_service/thirdparty/lib/libLHandProLib.so /usr/local/lib/ 
    # 刷新动态链接器缓存
    sudo ldconfig       
-   # (EtherCAT需要)赋予原始套接字 + 网络管理权限
+   # 赋予原始套接字 + 网络管理权限
    sudo setcap cap_net_raw,cap_net_admin+ep ./install/lhandpro_service/lib/lhandpro_service/lhandpro_service
    ```
 
@@ -64,7 +64,7 @@
 ### 启动服务
 
    ```bash
-   ros2 run lhandpro_service hand_control_service
+   ros2 launch lhandpro_service lhandpro.launch.py
    ```
 
 ### 启动示例控制

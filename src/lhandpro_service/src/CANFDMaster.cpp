@@ -21,9 +21,9 @@ CANFDMaster::CANFDMaster()
 // 设置CAN接口的波特率和模式
 bool CANFDMaster::setupCANInterface(const std::string& ifname, int nomBaud, int dataBaud) {
     // 重置USB CAN设备
-    system("modprobe -r gs_usb");
-    system("modprobe gs_usb");
-    system("echo 'a8fa 8598' | sudo tee /sys/bus/usb/drivers/gs_usb/new_id");
+    // system("modprobe -r gs_usb");
+    // system("modprobe gs_usb");
+    // system("echo 'a8fa 8598' | sudo tee /sys/bus/usb/drivers/gs_usb/new_id");
     
     // 设置CAN接口参数
     std::string cmd = "ip link set " + ifname + " down";
