@@ -26,9 +26,9 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='plf',
+    maintainer='sorrowfeng',
     maintainer_email='1399600304@qq.com',
-    description='DH116 model description project',
+    description='DH116S model description project',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={

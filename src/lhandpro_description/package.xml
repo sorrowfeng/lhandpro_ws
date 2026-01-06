@@ -3,7 +3,7 @@
 <package format="3">
   <name>lhandpro_description</name>
   <version>1.0.0</version>
-  <description>DH116 model description project</description>
+  <description>DH116S model description project</description>
   <maintainer email="1399600304@qq.com">plf</maintainer>
   <license>Apache-2.0</license>
 
