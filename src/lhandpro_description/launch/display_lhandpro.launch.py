@@ -7,7 +7,7 @@ import launch_ros.parameter_descriptions
 def generate_launch_description():
     # 获取默认urdf路径
     urdf_package_path = get_package_share_directory('lhandpro_description')
-    # Right hand: DH116-R000-A1.urdf,  Left hand: DH116-L000-A1.urdf
+    # Right hand: DH116S-R000-A1.urdf,  Left hand: DH116S-L000-A1.urdf
     default_urdf_path = os.path.join(urdf_package_path, 'urdf', 'DH116S-R000-A1.urdf')
     default_rviz_config_path = os.path.join(urdf_package_path, 'config', 'display_robot_model.rviz')
     # 声明urdf目录参数，方便修改
@@ -49,7 +49,7 @@ def generate_launch_description():
     return launch.LaunchDescription([
         action_declare_arg_mode_path,
         action_robot_state_publisher,
-        # action_lhandpro_state_publisher,
-        action_joint_state_publisher_gui,
+        action_lhandpro_state_publisher,
+        # action_joint_state_publisher_gui,
         action_rviz_node
     ])
